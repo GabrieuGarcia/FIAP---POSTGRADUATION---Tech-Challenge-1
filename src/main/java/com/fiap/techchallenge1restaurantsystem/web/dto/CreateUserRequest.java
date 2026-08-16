@@ -1,4 +1,15 @@
 package com.fiap.techchallenge1restaurantsystem.web.dto;
 
-public record CreateUserRequest() {
+import com.fiap.techchallenge1restaurantsystem.domain.Address;
+
+import java.util.Date;
+
+public record CreateUserRequest(
+        String name,
+        String email,
+        String login,
+        String password,
+        Date lastUpdate,
+        Address address
+) {
 }
