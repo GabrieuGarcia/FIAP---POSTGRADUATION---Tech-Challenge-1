@@ -2,6 +2,7 @@ package com.fiap.techchallenge1restaurantsystem.web;
 
 import com.fiap.techchallenge1restaurantsystem.application.UserUseCases;
 import com.fiap.techchallenge1restaurantsystem.web.dto.CreateUserRequest;
+import com.fiap.techchallenge1restaurantsystem.web.dto.LoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class UserController {
 
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public void login(@RequestBody LoginRequest request) {
 
     }
