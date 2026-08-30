@@ -2,7 +2,10 @@ package com.fiap.techchallenge1restaurantsystem.web;
 
 import com.fiap.techchallenge1restaurantsystem.application.UserUseCases;
 import com.fiap.techchallenge1restaurantsystem.web.dto.CreateUserRequest;
+import com.fiap.techchallenge1restaurantsystem.web.dto.LoginRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +16,13 @@ public class UserController {
 
     private final UserUseCases userUseCases;
 
-    public void create(CreateUserRequest request) {
+    @PostMapping
+    public void create(@RequestBody CreateUserRequest request) {
+
+    }
+
+    @PostMapping
+    public void login(@RequestBody LoginRequest request) {
 
     }
 }

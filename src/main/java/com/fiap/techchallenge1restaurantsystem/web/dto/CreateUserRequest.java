@@ -1,6 +1,6 @@
 package com.fiap.techchallenge1restaurantsystem.web.dto;
 
-import com.fiap.techchallenge1restaurantsystem.domain.Address;
+import com.fiap.techchallenge1restaurantsystem.domain.user.Address;
 
 import java.util.Date;
 
