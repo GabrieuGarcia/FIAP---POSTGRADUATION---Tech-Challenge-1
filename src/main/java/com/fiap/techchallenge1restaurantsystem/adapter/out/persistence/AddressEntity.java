@@ -1,4 +1,4 @@
-package com.fiap.techchallenge1restaurantsystem.infrastructures.persistence.entity;
+package com.fiap.techchallenge1restaurantsystem.adapter.out.persistence;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

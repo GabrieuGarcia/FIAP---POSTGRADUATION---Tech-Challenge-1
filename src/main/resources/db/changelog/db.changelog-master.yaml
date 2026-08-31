@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/changes/00000000000001_create-address-table.yaml
   - include:
       file: db/changelog/changes/00000000000002_create-users-table.yaml
+  - include:
+      file: db/changelog/changes/00000000000003_alter-users-table.yaml

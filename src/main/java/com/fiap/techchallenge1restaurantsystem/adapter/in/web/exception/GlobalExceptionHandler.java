@@ -1,4 +1,4 @@
-package com.fiap.techchallenge1restaurantsystem.web.exception;
+package com.fiap.techchallenge1restaurantsystem.adapter.in.web.exception;
 
 import com.fiap.techchallenge1restaurantsystem.domain.shared.DomainException;
 import org.slf4j.Logger;

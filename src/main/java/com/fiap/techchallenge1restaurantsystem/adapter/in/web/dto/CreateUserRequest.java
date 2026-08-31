@@ -1,5 +1,6 @@
-package com.fiap.techchallenge1restaurantsystem.web.dto;
+package com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto;
 
+import com.fiap.techchallenge1restaurantsystem.application.port.in.CreateUserCommand;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Address;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Email;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Password;
@@ -12,4 +13,8 @@ public record CreateUserRequest(
         Address address,
         UserType userType
 ) {
+
+    public CreateUserCommand toCommand() {
+        return new CreateUserCommand(name, email, password, address, userType);
+    }
 }

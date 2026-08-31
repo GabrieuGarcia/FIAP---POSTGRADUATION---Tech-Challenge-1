@@ -1,7 +1,10 @@
-package com.fiap.techchallenge1restaurantsystem.infrastructures.persistence.entity;
+package com.fiap.techchallenge1restaurantsystem.adapter.out.persistence;
 
+import com.fiap.techchallenge1restaurantsystem.domain.user.UserType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,8 +33,11 @@ public class UserEntity {
 
     private String name;
     private String email;
-    private String login;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
     private Date lastUpdate;
 
     @OneToOne(cascade = CascadeType.ALL)

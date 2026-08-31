@@ -27,4 +27,10 @@ public class User extends AggregateRoot<UUID> {
         this.address = Objects.requireNonNull(address, "address is required");
         this.userType = Objects.requireNonNull(userType, "userType is required");
     }
+
+    public String getName() { return name; }
+    public Email getEmail() { return email; }
+    public Password getPassword() { return password; }
+    public Address getAddress() { return address; }
+    public UserType getUserType() { return userType; }
 }
