@@ -42,13 +42,13 @@ public class User extends AggregateRoot<UUID> {
         this.lastModifiedDate = new Date();
     }
 
-    public void changePassword(Password currentPassword, Password newPassword) {
-        this.password = this.password.changeTo(currentPassword, newPassword);
+    public void changePassword(Password currentPassword, Password newPassword, PasswordEncoderPort encoder) {
+        this.password = this.password.changeTo(currentPassword, newPassword, encoder);
         this.lastModifiedDate = new Date();
     }
 
-    public boolean authenticate(Password candidate) {
-        return this.password.matches(candidate);
+    public boolean authenticate(Password candidate, PasswordEncoderPort encoder) {
+        return this.password.matches(candidate, encoder);
     }
 
     public String getName() { return name; }

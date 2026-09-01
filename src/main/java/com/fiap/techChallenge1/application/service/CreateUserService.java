@@ -5,6 +5,7 @@ import com.fiap.techChallenge1.application.port.in.usecases.CreateUserUseCase;
 import com.fiap.techChallenge1.application.port.out.UserRepositoryPort;
 import com.fiap.techChallenge1.domain.user.EmailAlreadyInUseException;
 import com.fiap.techChallenge1.domain.user.LoginAlreadyInUseException;
+import com.fiap.techChallenge1.domain.user.PasswordEncoderPort;
 import com.fiap.techChallenge1.domain.user.User;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,11 @@ import java.util.UUID;
 public class CreateUserService implements CreateUserUseCase {
 
     private final UserRepositoryPort userRepositoryPort;
+    private final PasswordEncoderPort passwordEncoderPort;
 
-    public CreateUserService(UserRepositoryPort userRepositoryPort) {
+    public CreateUserService(UserRepositoryPort userRepositoryPort, PasswordEncoderPort passwordEncoderPort) {
         this.userRepositoryPort = userRepositoryPort;
+        this.passwordEncoderPort = passwordEncoderPort;
     }
 
     @Override
@@ -34,7 +37,7 @@ public class CreateUserService implements CreateUserUseCase {
                 command.name(),
                 command.email(),
                 command.login(),
-                command.password(),
+                command.password().encode(passwordEncoderPort),
                 command.address(),
                 command.userType(),
                 new Date()

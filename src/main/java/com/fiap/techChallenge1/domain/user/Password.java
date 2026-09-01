@@ -16,15 +16,20 @@ public class Password implements ValueObject {
         return password;
     }
 
-    public boolean matches(Password candidate) {
-        return this.equals(candidate);
+    public boolean matches(Password rawCandidate, PasswordEncoderPort encoder) {
+        return encoder.matches(rawCandidate, this);
     }
 
-    public Password changeTo(Password currentPassword, Password newPassword) {
-        if (!matches(currentPassword)) {
+    public Password changeTo(Password currentRawPassword, Password newRawPassword, PasswordEncoderPort encoder) {
+        if (!matches(currentRawPassword, encoder)) {
             throw new InvalidCredentialsException("Current password does not match");
         }
-        return Objects.requireNonNull(newPassword, "newPassword is required");
+        Objects.requireNonNull(newRawPassword, "newPassword is required");
+        return encoder.encode(newRawPassword);
+    }
+
+    public Password encode(PasswordEncoderPort encoder) {
+        return encoder.encode(this);
     }
 
     @Override

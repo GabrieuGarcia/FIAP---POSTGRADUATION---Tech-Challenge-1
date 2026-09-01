@@ -4,7 +4,9 @@ import com.fiap.techChallenge1.adapter.in.web.dto.request.ChangePasswordRequest;
 import com.fiap.techChallenge1.adapter.in.web.dto.request.CreateUserRequest;
 import com.fiap.techChallenge1.adapter.in.web.dto.request.LoginRequest;
 import com.fiap.techChallenge1.adapter.in.web.dto.request.UpdateUserRequest;
+import com.fiap.techChallenge1.adapter.in.web.dto.response.LoginResponse;
 import com.fiap.techChallenge1.adapter.in.web.dto.response.UserResponse;
+import com.fiap.techChallenge1.adapter.in.web.security.JwtTokenProvider;
 import com.fiap.techChallenge1.application.port.in.usecases.ChangePasswordUseCase;
 import com.fiap.techChallenge1.application.port.in.usecases.CreateUserUseCase;
 import com.fiap.techChallenge1.application.port.in.usecases.DeleteUserUseCase;
@@ -47,6 +49,7 @@ public class UserController {
     private final DeleteUserUseCase deleteUserUseCase;
     private final SearchUsersByNameUseCase searchUsersByNameUseCase;
     private final LoginUserUseCase loginUserUseCase;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Operation(summary = "Register a new user (customer or restaurant owner)")
     @ApiResponses({
@@ -165,11 +168,25 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @Operation(summary = "Validate login credentials (mandatory login validation service)")
+    @Operation(summary = "Validate login credentials and issue a JWT (mandatory login validation service)")
     @ApiResponses({
 
-            @ApiResponse(responseCode = "200", description = "Valid credentials", content = @Content(
-                    schema = @Schema(implementation = UserResponse.class))),
+            @ApiResponse(responseCode = "200", description = "Valid credentials, JWT issued", content = @Content(
+                    schema = @Schema(implementation = LoginResponse.class),
+                    examples = @ExampleObject(name = "success", value = """
+                            {
+                              "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYWJyaWVsLmdhcmNpYSIs...",
+                              "tokenType": "Bearer",
+                              "user": {
+                                "id": "a64c6ce0-b0c8-4bed-92d6-c0d602688bb3",
+                                "name": "Gabriel Garcia",
+                                "email": "gabriel@example.com",
+                                "login": "gabriel.garcia",
+                                "address": { "street": "Rua A", "number": "100", "city": "Sao Paulo", "postalCode": "01000-000" },
+                                "userType": "CUSTOMER",
+                                "lastModifiedDate": "2026-09-01T20:09:00.000+00:00"
+                              }
+                            }"""))),
 
             @ApiResponse(responseCode = "401", description = "Invalid login or password", content = @Content(
                     mediaType = "application/problem+json",
@@ -183,8 +200,9 @@ public class UserController {
                             }""")))
     })
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         User user = loginUserUseCase.login(request.toCommand());
-        return ResponseEntity.ok(UserResponse.from(user));
+        String token = jwtTokenProvider.generateToken(user);
+        return ResponseEntity.ok(LoginResponse.of(token, UserResponse.from(user)));
     }
 }
