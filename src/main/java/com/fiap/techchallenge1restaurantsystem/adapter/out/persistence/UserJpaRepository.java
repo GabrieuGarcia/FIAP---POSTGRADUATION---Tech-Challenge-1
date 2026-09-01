@@ -1,5 +1,6 @@
 package com.fiap.techchallenge1restaurantsystem.adapter.out.persistence;
 
+import com.fiap.techchallenge1restaurantsystem.adapter.out.persistence.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

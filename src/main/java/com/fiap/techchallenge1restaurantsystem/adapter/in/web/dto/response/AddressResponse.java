@@ -1,4 +1,4 @@
-package com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto;
+package com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.response;
 
 import com.fiap.techchallenge1restaurantsystem.domain.user.Address;
 

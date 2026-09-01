@@ -1,6 +1,6 @@
 package com.fiap.techchallenge1restaurantsystem.application.service;
 
-import com.fiap.techchallenge1restaurantsystem.application.port.in.SearchUsersByNameUseCase;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.SearchUsersByNameUseCase;
 import com.fiap.techchallenge1restaurantsystem.application.port.out.UserRepositoryPort;
 import com.fiap.techchallenge1restaurantsystem.domain.user.User;
 import org.springframework.stereotype.Service;

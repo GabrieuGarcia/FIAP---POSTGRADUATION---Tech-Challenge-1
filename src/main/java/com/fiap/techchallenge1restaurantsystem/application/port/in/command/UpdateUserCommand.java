@@ -1,4 +1,4 @@
-package com.fiap.techchallenge1restaurantsystem.application.port.in;
+package com.fiap.techchallenge1restaurantsystem.application.port.in.command;
 
 import com.fiap.techchallenge1restaurantsystem.domain.user.Address;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Email;

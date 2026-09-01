@@ -1,5 +1,7 @@
-package com.fiap.techchallenge1restaurantsystem.adapter.out.persistence;
+package com.fiap.techchallenge1restaurantsystem.adapter.out.persistence.mapper;
 
+import com.fiap.techchallenge1restaurantsystem.adapter.out.persistence.entities.AddressEntity;
+import com.fiap.techchallenge1restaurantsystem.adapter.out.persistence.entities.UserEntity;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Address;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Email;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Password;

@@ -1,6 +1,6 @@
 package com.fiap.techchallenge1restaurantsystem.application.service;
 
-import com.fiap.techchallenge1restaurantsystem.application.port.in.DeleteUserUseCase;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.DeleteUserUseCase;
 import com.fiap.techchallenge1restaurantsystem.application.port.out.UserRepositoryPort;
 import com.fiap.techchallenge1restaurantsystem.domain.user.UserNotFoundException;
 import org.springframework.stereotype.Service;

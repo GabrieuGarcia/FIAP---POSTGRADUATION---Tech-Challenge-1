@@ -1,7 +1,7 @@
 package com.fiap.techchallenge1restaurantsystem.application.service;
 
-import com.fiap.techchallenge1restaurantsystem.application.port.in.UpdateUserCommand;
-import com.fiap.techchallenge1restaurantsystem.application.port.in.UpdateUserUseCase;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.command.UpdateUserCommand;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.UpdateUserUseCase;
 import com.fiap.techchallenge1restaurantsystem.application.port.out.UserRepositoryPort;
 import com.fiap.techchallenge1restaurantsystem.domain.user.EmailAlreadyInUseException;
 import com.fiap.techchallenge1restaurantsystem.domain.user.LoginAlreadyInUseException;

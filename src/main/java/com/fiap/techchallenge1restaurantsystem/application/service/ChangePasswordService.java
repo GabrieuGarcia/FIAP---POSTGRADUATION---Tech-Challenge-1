@@ -1,7 +1,7 @@
 package com.fiap.techchallenge1restaurantsystem.application.service;
 
-import com.fiap.techchallenge1restaurantsystem.application.port.in.ChangePasswordCommand;
-import com.fiap.techchallenge1restaurantsystem.application.port.in.ChangePasswordUseCase;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.command.ChangePasswordCommand;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.ChangePasswordUseCase;
 import com.fiap.techchallenge1restaurantsystem.application.port.out.UserRepositoryPort;
 import com.fiap.techchallenge1restaurantsystem.domain.user.User;
 import com.fiap.techchallenge1restaurantsystem.domain.user.UserNotFoundException;

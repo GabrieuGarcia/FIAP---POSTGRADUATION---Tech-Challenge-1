@@ -1,6 +1,6 @@
-package com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto;
+package com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.request;
 
-import com.fiap.techchallenge1restaurantsystem.application.port.in.ChangePasswordCommand;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.command.ChangePasswordCommand;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Password;
 import jakarta.validation.constraints.NotNull;
 

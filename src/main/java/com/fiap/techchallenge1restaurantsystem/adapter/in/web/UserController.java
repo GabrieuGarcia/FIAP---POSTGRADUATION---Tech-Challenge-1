@@ -1,16 +1,16 @@
 package com.fiap.techchallenge1restaurantsystem.adapter.in.web;
 
-import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.ChangePasswordRequest;
-import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.CreateUserRequest;
-import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.LoginRequest;
-import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.UpdateUserRequest;
-import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.UserResponse;
-import com.fiap.techchallenge1restaurantsystem.application.port.in.ChangePasswordUseCase;
-import com.fiap.techchallenge1restaurantsystem.application.port.in.CreateUserUseCase;
-import com.fiap.techchallenge1restaurantsystem.application.port.in.DeleteUserUseCase;
-import com.fiap.techchallenge1restaurantsystem.application.port.in.LoginUserUseCase;
-import com.fiap.techchallenge1restaurantsystem.application.port.in.SearchUsersByNameUseCase;
-import com.fiap.techchallenge1restaurantsystem.application.port.in.UpdateUserUseCase;
+import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.request.ChangePasswordRequest;
+import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.request.CreateUserRequest;
+import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.request.LoginRequest;
+import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.request.UpdateUserRequest;
+import com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.response.UserResponse;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.ChangePasswordUseCase;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.CreateUserUseCase;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.DeleteUserUseCase;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.LoginUserUseCase;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.SearchUsersByNameUseCase;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.usecases.UpdateUserUseCase;
 import com.fiap.techchallenge1restaurantsystem.domain.user.User;
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;

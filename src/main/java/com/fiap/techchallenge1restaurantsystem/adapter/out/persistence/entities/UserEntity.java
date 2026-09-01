@@ -1,4 +1,4 @@
-package com.fiap.techchallenge1restaurantsystem.adapter.out.persistence;
+package com.fiap.techchallenge1restaurantsystem.adapter.out.persistence.entities;
 
 import com.fiap.techchallenge1restaurantsystem.domain.user.UserType;
 import jakarta.persistence.CascadeType;

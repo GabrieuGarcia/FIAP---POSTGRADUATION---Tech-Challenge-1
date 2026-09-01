@@ -1,6 +1,6 @@
-package com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto;
+package com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto.request;
 
-import com.fiap.techchallenge1restaurantsystem.application.port.in.UpdateUserCommand;
+import com.fiap.techchallenge1restaurantsystem.application.port.in.command.UpdateUserCommand;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Address;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Email;
 import jakarta.validation.constraints.NotBlank;

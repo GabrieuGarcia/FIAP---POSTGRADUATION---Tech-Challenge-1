@@ -1,5 +1,7 @@
-package com.fiap.techchallenge1restaurantsystem.adapter.out.persistence;
+package com.fiap.techchallenge1restaurantsystem.adapter.out.persistence.mapper;
 
+import com.fiap.techchallenge1restaurantsystem.adapter.out.persistence.UserJpaRepository;
+import com.fiap.techchallenge1restaurantsystem.adapter.out.persistence.entities.UserEntity;
 import com.fiap.techchallenge1restaurantsystem.application.port.out.UserRepositoryPort;
 import com.fiap.techchallenge1restaurantsystem.domain.user.User;
 import org.springframework.stereotype.Component;
