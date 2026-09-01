@@ -1,6 +1,10 @@
 package com.fiap.techchallenge1restaurantsystem.adapter.in.web.exception;
 
 import com.fiap.techchallenge1restaurantsystem.domain.shared.DomainException;
+import com.fiap.techchallenge1restaurantsystem.domain.user.EmailAlreadyInUseException;
+import com.fiap.techchallenge1restaurantsystem.domain.user.InvalidCredentialsException;
+import com.fiap.techchallenge1restaurantsystem.domain.user.LoginAlreadyInUseException;
+import com.fiap.techchallenge1restaurantsystem.domain.user.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,6 +21,27 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ProblemDetail handleUserNotFound(UserNotFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        problem.setTitle("User Not Found");
+        return problem;
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ProblemDetail handleInvalidCredentials(InvalidCredentialsException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
+        problem.setTitle("Invalid Credentials");
+        return problem;
+    }
+
+    @ExceptionHandler({EmailAlreadyInUseException.class, LoginAlreadyInUseException.class})
+    public ProblemDetail handleConflict(DomainException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+        problem.setTitle("Conflict");
+        return problem;
+    }
 
     @ExceptionHandler(DomainException.class)
     public ProblemDetail handleDomainException(DomainException ex) {

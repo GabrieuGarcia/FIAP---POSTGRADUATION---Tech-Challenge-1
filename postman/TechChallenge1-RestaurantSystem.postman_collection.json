@@ -1,0 +1,308 @@
+{
+  "info": {
+    "name": "TechChallenge1 - Restaurant System",
+    "description": "User management endpoints: registration, update, password change, search, login validation. Run top-to-bottom (Runner) so captured variables (userId, etc.) flow between requests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "userId", "value": "" },
+    { "key": "userEmail", "value": "gabriel.postman@example.com" },
+    { "key": "userLogin", "value": "gabriel.postman" },
+    { "key": "userPassword", "value": "S3cret!123" },
+    { "key": "userNewPassword", "value": "N3wSecret!456" }
+  ],
+  "item": [
+    {
+      "name": "1. Create User - Valid",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 201', () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test('response has id', () => pm.expect(body.id).to.be.a('string'));",
+              "pm.collectionVariables.set('userId', body.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Gabriel Garcia\",\n  \"email\": \"{{userEmail}}\",\n  \"login\": \"{{userLogin}}\",\n  \"password\": \"{{userPassword}}\",\n  \"address\": { \"street\": \"Rua A\", \"number\": \"100\", \"city\": \"Sao Paulo\", \"postalCode\": \"01000-000\" },\n  \"userType\": \"CUSTOMER\"\n}"
+        }
+      }
+    },
+    {
+      "name": "2. Create User - Invalid (Missing Required Fields)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('problem detail has errors array', () => pm.expect(body.errors).to.be.an('array'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"missing.fields@example.com\"\n}"
+        }
+      }
+    },
+    {
+      "name": "3. Create User - Invalid (Duplicate Email)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 409', () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test('title is Conflict', () => pm.expect(body.title).to.eql('Conflict'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Duplicate Email User\",\n  \"email\": \"{{userEmail}}\",\n  \"login\": \"different.login\",\n  \"password\": \"{{userPassword}}\",\n  \"address\": { \"street\": \"Rua B\", \"number\": \"200\", \"city\": \"Sao Paulo\", \"postalCode\": \"01000-000\" },\n  \"userType\": \"CUSTOMER\"\n}"
+        }
+      }
+    },
+    {
+      "name": "4. Login - Valid",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('returns the correct user', () => pm.expect(body.login).to.eql(pm.collectionVariables.get('userLogin')));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"login\": \"{{userLogin}}\",\n  \"password\": \"{{userPassword}}\"\n}"
+        }
+      }
+    },
+    {
+      "name": "5. Login - Invalid (Wrong Password)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 401', () => pm.response.to.have.status(401));",
+              "const body = pm.response.json();",
+              "pm.test('title is Invalid Credentials', () => pm.expect(body.title).to.eql('Invalid Credentials'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"login\": \"{{userLogin}}\",\n  \"password\": \"totally-wrong-password\"\n}"
+        }
+      }
+    },
+    {
+      "name": "6. Search Users By Name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('response is an array with at least one match', () => {",
+              "  pm.expect(body).to.be.an('array');",
+              "  pm.expect(body.length).to.be.above(0);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/users?name=Gabriel",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "users"],
+          "query": [{ "key": "name", "value": "Gabriel" }]
+        }
+      }
+    },
+    {
+      "name": "7. Update User - Valid",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('name was updated', () => pm.expect(body.name).to.eql('Gabriel Garcia Updated'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users/{{userId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Gabriel Garcia Updated\",\n  \"email\": \"{{userEmail}}\",\n  \"login\": \"{{userLogin}}\",\n  \"address\": { \"street\": \"Rua C\", \"number\": \"300\", \"city\": \"Sao Paulo\", \"postalCode\": \"02000-000\" }\n}"
+        }
+      }
+    },
+    {
+      "name": "8. Update User - Invalid (User Not Found)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 404', () => pm.response.to.have.status(404));",
+              "const body = pm.response.json();",
+              "pm.test('title is User Not Found', () => pm.expect(body.title).to.eql('User Not Found'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users/00000000-0000-0000-0000-000000000000",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Nobody\",\n  \"email\": \"nobody@example.com\",\n  \"login\": \"nobody\",\n  \"address\": { \"street\": \"Rua Z\", \"number\": \"1\", \"city\": \"Sao Paulo\", \"postalCode\": \"01000-000\" }\n}"
+        }
+      }
+    },
+    {
+      "name": "9. Change Password - Invalid (Wrong Current Password)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 401', () => pm.response.to.have.status(401));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users/{{userId}}/password",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"currentPassword\": \"wrong-current-password\",\n  \"newPassword\": \"{{userNewPassword}}\"\n}"
+        }
+      }
+    },
+    {
+      "name": "10. Change Password - Valid",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 204', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users/{{userId}}/password",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"currentPassword\": \"{{userPassword}}\",\n  \"newPassword\": \"{{userNewPassword}}\"\n}"
+        }
+      }
+    },
+    {
+      "name": "11. Login - Valid (With New Password)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 200', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/users/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"login\": \"{{userLogin}}\",\n  \"password\": \"{{userNewPassword}}\"\n}"
+        }
+      }
+    },
+    {
+      "name": "12. Delete User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 204', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/v1/users/{{userId}}"
+      }
+    }
+  ]
+}

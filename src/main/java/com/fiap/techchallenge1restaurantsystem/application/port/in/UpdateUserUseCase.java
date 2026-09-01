@@ -2,7 +2,7 @@ package com.fiap.techchallenge1restaurantsystem.application.port.in;
 
 import com.fiap.techchallenge1restaurantsystem.domain.user.User;
 
-public interface LoginUserUseCase {
+public interface UpdateUserUseCase {
 
-    User login(LoginCommand command);
+    User updateUser(UpdateUserCommand command);
 }

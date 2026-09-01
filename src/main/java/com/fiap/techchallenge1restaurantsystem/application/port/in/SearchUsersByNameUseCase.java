@@ -2,7 +2,9 @@ package com.fiap.techchallenge1restaurantsystem.application.port.in;
 
 import com.fiap.techchallenge1restaurantsystem.domain.user.User;
 
-public interface LoginUserUseCase {
+import java.util.List;
 
-    User login(LoginCommand command);
+public interface SearchUsersByNameUseCase {
+
+    List<User> searchByName(String name);
 }

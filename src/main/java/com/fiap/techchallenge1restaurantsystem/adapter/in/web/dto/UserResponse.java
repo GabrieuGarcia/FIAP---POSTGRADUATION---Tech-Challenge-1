@@ -2,13 +2,17 @@ package com.fiap.techchallenge1restaurantsystem.adapter.in.web.dto;
 
 import com.fiap.techchallenge1restaurantsystem.domain.user.User;
 
+import java.util.Date;
 import java.util.UUID;
 
 public record UserResponse(
         UUID id,
         String name,
         String email,
-        String userType
+        String login,
+        AddressResponse address,
+        String userType,
+        Date lastModifiedDate
 ) {
 
     public static UserResponse from(User user) {
@@ -16,7 +20,10 @@ public record UserResponse(
                 user.getId(),
                 user.getName(),
                 user.getEmail().getValue(),
-                user.getUserType().name()
+                user.getLogin(),
+                AddressResponse.from(user.getAddress()),
+                user.getUserType().name(),
+                user.getLastModifiedDate()
         );
     }
 }

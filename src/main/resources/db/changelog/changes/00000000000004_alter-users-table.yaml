@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: gabriel
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: login
+                  type: varchar(120)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - renameColumn:
+            tableName: users
+            oldColumnName: last_update
+            newColumnName: last_modified_date
+            columnDataType: timestamp

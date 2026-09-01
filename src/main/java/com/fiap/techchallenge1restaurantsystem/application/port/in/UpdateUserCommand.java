@@ -2,15 +2,14 @@ package com.fiap.techchallenge1restaurantsystem.application.port.in;
 
 import com.fiap.techchallenge1restaurantsystem.domain.user.Address;
 import com.fiap.techchallenge1restaurantsystem.domain.user.Email;
-import com.fiap.techchallenge1restaurantsystem.domain.user.Password;
-import com.fiap.techchallenge1restaurantsystem.domain.user.UserType;
 
-public record CreateUserCommand(
+import java.util.UUID;
+
+public record UpdateUserCommand(
+        UUID userId,
         String name,
         Email email,
         String login,
-        Password password,
-        Address address,
-        UserType userType
+        Address address
 ) {
 }
